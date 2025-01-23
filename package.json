@@ -1,0 +1,31 @@
+{
+  "name": "root",
+  "private": true,
+  "scripts": {
+    "build": "cross-env NODE_OPTIONS=\"--max-old-space-size=4096\" npx lerna run build",
+    "test": "npx lerna run test",
+    "functions": "npx supabase functions serve --env-file .env",
+    "gen:types": "npx supabase gen types --local > packages/@pufflig/ps-types/src/types/db/database.ts",
+    "run:functions": "cd supabase && npx supabase function serve --env-file .env",
+    "build:webapp": "cd packages/@pufflig/prompt-studio-ui && npm run build && cd ../../../clients/webapp && npm run build",
+    "clean": "find . -type d -name \"node_modules\" -prune -exec rm -rf '{}' + && find . -type d -name \"dist\" -prune -exec rm -rf '{}' +"
+  },
+  "engines": {
+    "node": "22"
+  },
+  "workspaces": {
+    "packages": [
+      "packages/**",
+      "clients/*",
+      "services/*"
+    ]
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "lerna": "^8.1.9",
+    "typescript": "^5.6.3"
+  },
+  "volta": {
+    "node": "22.11.0"
+  }
+}
